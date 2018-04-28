@@ -5,16 +5,17 @@ using UnityEngine;
 public class DotControls : MonoBehaviour {
 	private Renderer renderer;
 	private Rigidbody2D rigidbody;
-	private float colorCycle = 10.0f;
+	public float colorCycle = 5.0f;
 	public float speed = 1.0f;
 	public float yPos = -6.0f;
 
-	private float LRmost = 1.25f;
+	private float LRmost = 2.0f;
 	private int LRsteps = 5;
 
 	void Start () {
 		rigidbody = GetComponent<Rigidbody2D>();	
 		renderer = GetComponent<Renderer>();
+		renderer.material.color = Color.cyan;
 	}
 
 	void Update () {
@@ -25,7 +26,7 @@ public class DotControls : MonoBehaviour {
 		}
 		
 		float timesecs = Time.fixedTime;
-		speed *= (1.0f + Time.deltaTime / 1000);
+		speed *= (1.0f + Time.deltaTime / 500);
 		changeColor (timesecs * speed);
 
 		if (yPos >= -2)
@@ -34,22 +35,20 @@ public class DotControls : MonoBehaviour {
 
 	void changeColor(float timesecs) {
 		float colorParam = timesecs - (((int)timesecs) / ((int)colorCycle)) * ((int)colorCycle);
-		if (timesecs <= colorCycle)
-			renderer.material.color = Color.Lerp (Color.white, Color.cyan, colorParam / colorCycle);
-		else if (((int)timesecs) % (colorCycle * 3) < colorCycle)
-			renderer.material.color = Color.Lerp (Color.yellow, Color.cyan, colorParam / colorCycle);
+		if (((int)timesecs) % (colorCycle * 3) < colorCycle)
+			renderer.material.color = Color.Lerp (Color.cyan, Color.yellow, colorParam / colorCycle);
 		else if (((int)timesecs) % (colorCycle * 3) < colorCycle * 2)
-			renderer.material.color = Color.Lerp (Color.cyan, Color.magenta, colorParam / colorCycle);
+			renderer.material.color = Color.Lerp (Color.yellow, Color.magenta, colorParam / colorCycle);
 		else
-			renderer.material.color = Color.Lerp (Color.magenta, Color.yellow, colorParam / colorCycle);
+			renderer.material.color = Color.Lerp (Color.magenta, Color.cyan, colorParam / colorCycle);
 	}
 
 	void tappingHandle(){
 		// for mobile
 		if (Input.touchCount > 0){
-			if (Input.GetTouch (0).position.x < Screen.width / 2 && transform.position.x > -1f)
+			if (Input.GetTouch (0).position.x < Screen.width / 2 && transform.position.x > -LRmost)
 				transform.Translate (new Vector3 (-LRmost / LRsteps, 0.0f));
-			else if (Input.GetTouch (0).position.x > Screen.width / 2 && transform.position.x < 1f)
+			else if (Input.GetTouch (0).position.x > Screen.width / 2 && transform.position.x < LRmost)
 				transform.Translate (new Vector3 (LRmost / LRsteps, 0.0f));
 		}
 		else{
