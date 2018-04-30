@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GeneralParameters : MonoBehaviour {
 
-	public float speed = 5.0f;
+	public float speed = 4.0f;
 
 	void Start () {
 		

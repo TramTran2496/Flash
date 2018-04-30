@@ -12,7 +12,7 @@ public class GlassControls : GeneralParameters {
 	void Update () {
 		transform.Translate (new Vector3 (0.0f, -Time.deltaTime * speed));
 
-		if (transform.position.y < -5)
-			transform.position = new Vector3 (0, 10, 0);
+		if (transform.position.y < -6)
+			transform.position = new Vector3 (2, 12, 0);
 	}
 }

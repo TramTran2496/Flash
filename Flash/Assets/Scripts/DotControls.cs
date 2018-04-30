@@ -5,7 +5,7 @@ using UnityEngine;
 public class DotControls : GeneralParameters {
 	
 	private Renderer renderer;
-	public const float colorCycle = 30.0f;
+	public const float colorCycle = 4.0f;
 
 	private float LRmost = 1.5f;
 	private int LRsteps = 5;
@@ -28,10 +28,17 @@ public class DotControls : GeneralParameters {
 
 	void changeColor(float timesecs) {
 		float colorParam = timesecs - (((int)timesecs) / ((int)colorCycle)) * ((int)colorCycle);
-		if (((int)timesecs) % (colorCycle * 3) < colorCycle)
+		float cycle = ((int)timesecs) % (colorCycle * 9);
+		if(cycle < colorCycle * 2)
+			renderer.material.color = Color.cyan;
+		else if (cycle < colorCycle * 3)
 			renderer.material.color = Color.Lerp (Color.cyan, Color.yellow, colorParam / colorCycle);
-		else if (((int)timesecs) % (colorCycle * 3) < colorCycle * 2)
+		else if (cycle < colorCycle * 5)
+			renderer.material.color = Color.yellow;
+		else if (cycle < colorCycle * 6)
 			renderer.material.color = Color.Lerp (Color.yellow, Color.magenta, colorParam / colorCycle);
+		else if (cycle < colorCycle * 8)
+			renderer.material.color = Color.magenta;
 		else
 			renderer.material.color = Color.Lerp (Color.magenta, Color.cyan, colorParam / colorCycle);
 	}
