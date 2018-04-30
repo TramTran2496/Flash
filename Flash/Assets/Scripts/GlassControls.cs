@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GlassControls : GeneralParameters {
+public class GlassControls : General {
 	// Use this for initialization
 	void Start () {
 		
@@ -10,9 +10,19 @@ public class GlassControls : GeneralParameters {
 	
 	// Update is called once per frame
 	void Update () {
+		speedupTime += Time.deltaTime;
+		if (speedupTime > (colorCycle / speed)){
+			speed = increaseSpeed ();
+			speedupTime = 0;
+		}
 		transform.Translate (new Vector3 (0.0f, -Time.deltaTime * speed));
 
-		if (transform.position.y < -6)
-			transform.position = new Vector3 (2, 12, 0);
+		generateGlasses ();
+	}
+
+	void generateGlasses() {
+		//TODO at the beginning of a cycle, random type and position of 9 glasses that appear in the cycle
+		if (transform.position.y < glassEndAt)
+			transform.position = new Vector3 (2, glassStartAt, 0);
 	}
 }

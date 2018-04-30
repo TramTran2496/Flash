@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraControls : GeneralParameters {
+public class CameraControls : General {
 	// Use this for initialization
 	void Start () {
 		
