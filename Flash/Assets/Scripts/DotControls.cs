@@ -2,35 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DotControls : MonoBehaviour {
+public class DotControls : GeneralParameters {
+	
 	private Renderer renderer;
-	private Rigidbody2D rigidbody;
-	public float colorCycle = 5.0f;
-	public float speed = 1.0f;
-	public float yPos = -6.0f;
+	public const float colorCycle = 30.0f;
 
-	private float LRmost = 2.0f;
+	private float LRmost = 1.5f;
 	private int LRsteps = 5;
 
 	void Start () {
-		rigidbody = GetComponent<Rigidbody2D>();	
 		renderer = GetComponent<Renderer>();
 		renderer.material.color = Color.cyan;
 	}
 
 	void Update () {
-		if (rigidbody.gravityScale != 0 && transform.position.y >= -2){
-			rigidbody.gravityScale = 0;
-			rigidbody.Sleep ();
-			yPos = transform.position.y;
-		}
-		
-		float timesecs = Time.fixedTime;
-		speed *= (1.0f + Time.deltaTime / 500);
-		changeColor (timesecs * speed);
+		changeColor (Time.fixedTime * speed);
 
-		if (yPos >= -2)
-			tappingHandle ();
+		tappingHandle ();
+	}
+
+	void OnCollisionEnter2D (Collision2D coll){
+		if (coll.gameObject.tag == "glass")
+			Debug.Log ("game over");
 	}
 
 	void changeColor(float timesecs) {
