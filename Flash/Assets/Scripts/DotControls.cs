@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DotControls : General {
+public class DotControls : Controls {
 	
 	private Renderer renderer;
 
@@ -15,19 +15,9 @@ public class DotControls : General {
 	}
 
 	void Update () {
-		speedupTime += Time.deltaTime;
-		if (speedupTime > (colorCycle / speed)){
-			speed = increaseSpeed ();
-			speedupTime = 0;
-		}
-		if (speed > 15 && LRsteps == 2)
-			LRsteps--;
-		else if (speed > 7.5 && LRsteps == 3)
-			LRsteps--;
-		else if (speed > 5 && LRsteps == 4)
-			LRsteps--;
-		else if (speed > 3.75 && LRsteps == 5)
-			LRsteps--;
+		transform.Translate (new Vector3 (0, Time.deltaTime * speed));
+
+		increaseSpeed ();
 		changeColor (Time.fixedTime);
 		tappingHandle ();
 	}

@@ -51,9 +51,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\BackControls.cs" />
      <Compile Include="Assets\Scripts\CameraControls.cs" />
+     <Compile Include="Assets\Scripts\Controls.cs" />
      <Compile Include="Assets\Scripts\DotControls.cs" />
-     <Compile Include="Assets\Scripts\General.cs" />
      <Compile Include="Assets\Scripts\GlassControls.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
