@@ -18,7 +18,7 @@ public class Controls : MonoBehaviour {
 	}
 
 	protected float increaseSpeed() {
-		speed += 0.5f;
+		speed += 0.1f;
 		return speed;
 	}
 

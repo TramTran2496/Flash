@@ -7,7 +7,7 @@ public class DotControls : Controls {
 	private Renderer renderer;
 	private TrailRenderer trail;
 
-	private float LRmost = 1.5f;
+	private float LRmost = 1.75f;
 	private int LRsteps = 5;
 	private int colorIdx = 0;
 	private const int initialPos = -2;
@@ -21,14 +21,12 @@ public class DotControls : Controls {
 
 	void Update () {
 		transform.Translate (new Vector3 (0, Time.deltaTime * speed));
-
 		if(transform.position.y > nextRoundY + initialPos){
-			float tempPos = transform.position.y - nextRoundY - initialPos;
-			if (tempPos <= colorChange)
-				changeColor (colorIdx, tempPos / colorChange);
+			if (transform.position.y - nextRoundY - initialPos <= colorChange)
+				changeColor (colorIdx, (transform.position.y - nextRoundY - initialPos) / colorChange);
 			else{
 				colorIdx++;
-				trail.time = trail.time / (speed + 0.5f) * speed;
+				trail.time = trail.time / (speed + 0.1f) * speed;
 				speed = increaseSpeed ();
 				nextRoundY = toNextRound ();
 			}
@@ -68,7 +66,6 @@ public class DotControls : Controls {
 	}
 
 	void tappingHandle(){
-		// for mobile
 		if (Input.touchCount > 0){
 			if (Input.GetTouch (0).position.x < Screen.width / 2 && transform.position.x > -LRmost)
 				transform.Translate (new Vector3 (-LRmost / LRsteps, 0.0f));
@@ -89,28 +86,5 @@ public class DotControls : Controls {
 					transform.Translate (new Vector3 (-transform.position.x, 0.0f));
 			}
 		}
-		/* for pc testing
-		if (Input.GetKey(KeyCode.RightArrow)) {
-			if (transform.position.x < LRmost)
-				transform.Translate (new Vector3 (LRmost / LRsteps, 0.0f));
-		}
-		else if (Input.GetKey(KeyCode.LeftArrow)) {
-			if(transform.position.x > -LRmost)
-				transform.Translate (new Vector3 (-LRmost / LRsteps, 0.0f));
-		}
-		else {
-			if (transform.position.x < 0){
-				if (transform.position.x < -LRmost / LRsteps)
-					transform.Translate (new Vector3 (LRmost / LRsteps, 0.0f));
-				else
-					transform.Translate (new Vector3 (-transform.position.x, 0.0f));
-			}
-			else if (transform.position.x > 0){
-				if (transform.position.x > LRmost / LRsteps)
-					transform.Translate (new Vector3 (-LRmost / LRsteps, 0.0f));
-				else
-					transform.Translate (new Vector3 (-transform.position.x, 0.0f));
-			}
-		}*/
 	}
 }
