@@ -38,3 +38,43 @@ D:\ti\university\semester172\MobileApplicationsDevelopment\Flash\Flash\Temp\bin\
 D:\ti\university\semester172\MobileApplicationsDevelopment\Flash\Flash\obj\Release\Assembly-CSharp.dll
 D:\ti\university\semester172\MobileApplicationsDevelopment\Flash\Flash\obj\Release\Assembly-CSharp.pdb
 D:\ti\university\semester172\MobileApplicationsDevelopment\Flash\Flash\obj\Release\Assembly-CSharp.csprojResolveAssemblyReference.cache
+C:\Users\Asus PU401LAC\OneDrive\BK172\DD\trunk\Flash\Temp\bin\Release\Assembly-CSharp.dll
+C:\Users\Asus PU401LAC\OneDrive\BK172\DD\trunk\Flash\Temp\bin\Release\Assembly-CSharp.pdb
+C:\Users\Asus PU401LAC\OneDrive\BK172\DD\trunk\Flash\Temp\bin\Release\nunit.framework.dll
+C:\Users\Asus PU401LAC\OneDrive\BK172\DD\trunk\Flash\Temp\bin\Release\UnityEditor.dll
+C:\Users\Asus PU401LAC\OneDrive\BK172\DD\trunk\Flash\Temp\bin\Release\UnityEngine.Advertisements.dll
+C:\Users\Asus PU401LAC\OneDrive\BK172\DD\trunk\Flash\Temp\bin\Release\UnityEngine.Analytics.dll
+C:\Users\Asus PU401LAC\OneDrive\BK172\DD\trunk\Flash\Temp\bin\Release\UnityEngine.dll
+C:\Users\Asus PU401LAC\OneDrive\BK172\DD\trunk\Flash\Temp\bin\Release\UnityEngine.GoogleAudioSpatializer.dll
+C:\Users\Asus PU401LAC\OneDrive\BK172\DD\trunk\Flash\Temp\bin\Release\UnityEngine.HoloLens.dll
+C:\Users\Asus PU401LAC\OneDrive\BK172\DD\trunk\Flash\Temp\bin\Release\UnityEngine.Networking.dll
+C:\Users\Asus PU401LAC\OneDrive\BK172\DD\trunk\Flash\Temp\bin\Release\UnityEngine.Purchasing.dll
+C:\Users\Asus PU401LAC\OneDrive\BK172\DD\trunk\Flash\Temp\bin\Release\UnityEngine.SpatialTracking.dll
+C:\Users\Asus PU401LAC\OneDrive\BK172\DD\trunk\Flash\Temp\bin\Release\UnityEngine.StandardEvents.dll
+C:\Users\Asus PU401LAC\OneDrive\BK172\DD\trunk\Flash\Temp\bin\Release\UnityEngine.TestRunner.dll
+C:\Users\Asus PU401LAC\OneDrive\BK172\DD\trunk\Flash\Temp\bin\Release\UnityEngine.Timeline.dll
+C:\Users\Asus PU401LAC\OneDrive\BK172\DD\trunk\Flash\Temp\bin\Release\UnityEngine.UI.dll
+C:\Users\Asus PU401LAC\OneDrive\BK172\DD\trunk\Flash\Temp\bin\Release\UnityEngine.UIAutomation.dll
+C:\Users\Asus PU401LAC\OneDrive\BK172\DD\trunk\Flash\Temp\bin\Release\Unity.Cecil.dll
+C:\Users\Asus PU401LAC\OneDrive\BK172\DD\trunk\Flash\Temp\bin\Release\Unity.SerializationLogic.dll
+C:\Users\Asus PU401LAC\OneDrive\BK172\DD\trunk\Flash\Temp\bin\Release\Unity.DataContract.dll
+C:\Users\Asus PU401LAC\OneDrive\BK172\DD\trunk\Flash\Temp\bin\Release\ExCSS.Unity.dll
+C:\Users\Asus PU401LAC\OneDrive\BK172\DD\trunk\Flash\Temp\bin\Release\Unity.Legacy.NRefactory.dll
+C:\Users\Asus PU401LAC\OneDrive\BK172\DD\trunk\Flash\Temp\bin\Release\Unity.UNetWeaver.dll
+C:\Users\Asus PU401LAC\OneDrive\BK172\DD\trunk\Flash\Temp\bin\Release\Unity.CecilTools.dll
+C:\Users\Asus PU401LAC\OneDrive\BK172\DD\trunk\Flash\Temp\bin\Release\Unity.Cecil.Pdb.dll
+C:\Users\Asus PU401LAC\OneDrive\BK172\DD\trunk\Flash\Temp\bin\Release\Unity.Cecil.Mdb.dll
+C:\Users\Asus PU401LAC\OneDrive\BK172\DD\trunk\Flash\Temp\bin\Release\UnityEngine.xml
+C:\Users\Asus PU401LAC\OneDrive\BK172\DD\trunk\Flash\Temp\bin\Release\UnityEditor.xml
+C:\Users\Asus PU401LAC\OneDrive\BK172\DD\trunk\Flash\Temp\bin\Release\UnityEngine.UI.xml
+C:\Users\Asus PU401LAC\OneDrive\BK172\DD\trunk\Flash\Temp\bin\Release\UnityEngine.Networking.xml
+C:\Users\Asus PU401LAC\OneDrive\BK172\DD\trunk\Flash\Temp\bin\Release\UnityEngine.TestRunner.xml
+C:\Users\Asus PU401LAC\OneDrive\BK172\DD\trunk\Flash\Temp\bin\Release\nunit.framework.xml
+C:\Users\Asus PU401LAC\OneDrive\BK172\DD\trunk\Flash\Temp\bin\Release\UnityEngine.Timeline.xml
+C:\Users\Asus PU401LAC\OneDrive\BK172\DD\trunk\Flash\Temp\bin\Release\UnityEngine.UIAutomation.xml
+C:\Users\Asus PU401LAC\OneDrive\BK172\DD\trunk\Flash\Temp\bin\Release\UnityEngine.GoogleAudioSpatializer.xml
+C:\Users\Asus PU401LAC\OneDrive\BK172\DD\trunk\Flash\Temp\bin\Release\UnityEngine.HoloLens.xml
+C:\Users\Asus PU401LAC\OneDrive\BK172\DD\trunk\Flash\Temp\bin\Release\UnityEngine.SpatialTracking.xml
+C:\Users\Asus PU401LAC\OneDrive\BK172\DD\trunk\Flash\obj\Release\Assembly-CSharp.csprojResolveAssemblyReference.cache
+C:\Users\Asus PU401LAC\OneDrive\BK172\DD\trunk\Flash\obj\Release\Assembly-CSharp.dll
+C:\Users\Asus PU401LAC\OneDrive\BK172\DD\trunk\Flash\obj\Release\Assembly-CSharp.pdb
