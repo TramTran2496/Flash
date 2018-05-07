@@ -5,20 +5,34 @@ using UnityEngine;
 public class DotControls : Controls {
 	
 	private Renderer renderer;
+	private TrailRenderer trail;
 
 	private float LRmost = 1.5f;
 	private int LRsteps = 5;
+	private int colorIdx = 0;
+	private const int initialPos = -2;
 
 	void Start () {
 		renderer = GetComponent<Renderer>();
 		renderer.material.color = Color.cyan;
+		trail = GetComponent<TrailRenderer> ();
+		trail.material.color = Color.cyan;
 	}
 
 	void Update () {
 		transform.Translate (new Vector3 (0, Time.deltaTime * speed));
 
-		increaseSpeed ();
-		changeColor (Time.fixedTime);
+		if(transform.position.y > nextRoundY + initialPos){
+			float tempPos = transform.position.y - nextRoundY - initialPos;
+			if (tempPos <= colorChange)
+				changeColor (colorIdx, tempPos / colorChange);
+			else{
+				colorIdx++;
+				trail.time = trail.time / (speed + 0.5f) * speed;
+				speed = increaseSpeed ();
+				nextRoundY = toNextRound ();
+			}
+		}
 		tappingHandle ();
 	}
 
@@ -28,28 +42,29 @@ public class DotControls : Controls {
 			Debug.Log ("game over");
 	}
 
-	void changeColor(float timesecs) {
-		//TODO change color after meet a glass
-
-		/*float timeInterval = timesecs - ((int)(timesecs / (colorCycle / speed * 3))) * (colorCycle / speed * 3);
-		if (timeInterval < ((colorCycle - colorChange) / speed))
-			renderer.material.color = Color.cyan;
-		else if (timeInterval < (colorCycle / speed)) {
-			float colorParam = timeInterval - ((colorCycle - colorChange) / speed);
-			renderer.material.color = Color.Lerp (Color.cyan, Color.yellow, colorParam / colorChange);
+	void changeColor(int colorIdx, float colorParam) {
+		Color curColor = Color.cyan;
+		Color nextColor = Color.cyan;
+		switch(colorIdx % 3){
+		case 0:
+			curColor = Color.cyan;
+			nextColor = Color.yellow;
+			break;
+		case 1:
+			curColor = Color.yellow;
+			nextColor = Color.magenta;
+			break;
+		case 2:
+			curColor = Color.magenta;
+			nextColor = Color.cyan;
+			break;
+		default:
+			curColor = Color.cyan;
+			nextColor = Color.cyan;
+			break;
 		}
-		else if (timeInterval < ((colorCycle * 2 - colorChange) / speed))
-			renderer.material.color = Color.yellow;
-		else if (timeInterval < (colorCycle * 2 / speed)) {
-			float colorParam = timeInterval - ((colorCycle * 2 - colorChange) / speed);
-			renderer.material.color = Color.Lerp (Color.yellow, Color.magenta, colorParam / colorChange);
-		}
-		else if (timeInterval < ((colorCycle * 3 - colorChange) / speed))
-			renderer.material.color = Color.magenta;
-		else {
-			float colorParam = timeInterval - ((colorCycle * 3 - colorChange) / speed);
-			renderer.material.color = Color.Lerp (Color.magenta, Color.cyan, colorParam / colorChange);
-		}*/
+		renderer.material.color = Color.Lerp (curColor, nextColor, colorParam);
+		trail.material.color = Color.Lerp (curColor, nextColor, colorParam);
 	}
 
 	void tappingHandle(){

@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class Controls : MonoBehaviour {
 
-	public float speed = 3.0f;
+	public float speed = 4.0f;
+	public const float colorChange = 4.0f;
+	public int nextRoundY = 60;
+	private const int roundInterval = 60;
 
 	void Start () {
 		
@@ -15,7 +18,16 @@ public class Controls : MonoBehaviour {
 	}
 
 	protected float increaseSpeed() {
-		speed *= 1.00005f;
+		speed += 0.5f;
 		return speed;
+	}
+
+	protected int toNextRound(){
+		nextRoundY += roundInterval;
+		return nextRoundY;
+	}
+
+	protected int getRound(){
+		return nextRoundY / roundInterval + 1;
 	}
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraControls : Controls {
-	
+
 	// Use this for initialization
 	void Start () {
 
@@ -13,6 +13,9 @@ public class CameraControls : Controls {
 	void Update () {
 		transform.Translate (new Vector3 (0, Time.deltaTime * speed));
 
-		increaseSpeed ();
+		if (transform.position.y - nextRoundY > colorChange){
+			speed = increaseSpeed ();
+			nextRoundY = toNextRound ();
+		}
 	}
 }
