@@ -7,7 +7,9 @@ public class GlassControls : Controls {
 
 	private const int glassNo = 8;
 	public GameObject glass;
-	private GameObject[] glasses;
+	private GameObject[] glasses1;
+	private GameObject[] glasses2;
+	private GameObject[] glasses3;
 
 	public Text round;
 
@@ -15,7 +17,9 @@ public class GlassControls : Controls {
 	private float yDistance = 6;
 	// Use this for initialization
 	void Start () {
-		glasses = new GameObject[glassNo];
+		glasses1 = new GameObject[glassNo];
+		glasses2 = new GameObject[glassNo];
+		glasses3 = new GameObject[glassNo];
 		generateGlasses ();
 	}
 	
@@ -30,12 +34,15 @@ public class GlassControls : Controls {
 		}
 	}
 
-	int randomPosX(){
-		return Random.Range (0, 3) * 2 - 2;
+	int randomPosXexcept(int except){
+		int rand = Random.Range (0, 3) * 2 - 2;
+		while (rand == except)
+			rand = Random.Range (0, 3) * 2 - 2;
+		return rand;
 	}
 
-	Color randomColor(){
-		switch (Random.Range (0, 4)){
+	Color randomColor(int clNum){
+		switch (Random.Range (0, clNum)){
 		case 0:
 			return Color.cyan;
 		case 1:
@@ -47,13 +54,46 @@ public class GlassControls : Controls {
 		}
 	}
 
+	int randomLevel(int maxLevel){
+		return Random.Range (0, maxLevel);
+	}
+
 	void generateGlasses(){
 		//TODO generate obstacles as 4 different levels
 		for(int i = 0; i < glassNo; i++) {
 			yStart += yDistance;
-			Vector3 vt = new Vector3 (randomPosX (), yStart, transform.position.z);
-			glasses [i] = (GameObject)Instantiate (glass, vt, Quaternion.identity);
-			glasses [i].GetComponent<Renderer> ().material.color = randomColor ();
+			int x = randomPosXexcept (-3);
+			Vector3 vt = new Vector3 (x, yStart, transform.position.z);
+			glasses1 [i] = (GameObject)Instantiate (glass, vt, Quaternion.identity);
+			glasses1 [i].GetComponent<Renderer> ().material.color = randomColor (4);
+			if(getRound () > 2 && randomLevel (2) > 0){
+				vt = new Vector3 (randomPosXexcept (x), yStart, transform.position.z);
+				glasses2 [i] = (GameObject)Instantiate (glass, vt, Quaternion.identity);
+				glasses2 [i].GetComponent<Renderer> ().material.color = randomColor (4);
+			}
+			else if(getRound () > 3){
+				int obsNum = randomLevel (getRound () - 1);
+				int x2 = randomPosXexcept (x);
+				Color randColor = randomColor (3);
+				if(obsNum > 0){
+					vt = new Vector3 (x2, yStart, transform.position.z);
+					glasses2 [i] = (GameObject)Instantiate (glass, vt, Quaternion.identity);
+					while(randColor == glasses1 [i].GetComponent<Renderer> ().material.color)
+						randColor = randomColor (3);
+					glasses2 [i].GetComponent<Renderer> ().material.color = randColor;
+				}
+				if(obsNum > 1){
+					if(glasses1 [i].GetComponent<Renderer> ().material.color == Color.gray)
+						glasses1 [i].GetComponent<Renderer> ().material.color = randomColor (3);
+					vt = new Vector3 (-x - x2, yStart, transform.position.z);
+					glasses3 [i] = (GameObject)Instantiate (glass, vt, Quaternion.identity);
+					Color randColor3 = randomColor (3);
+					while(randColor3 == glasses1 [i].GetComponent<Renderer> ().material.color
+						|| randColor3 == randColor)
+						randColor3 = randomColor (3);
+					glasses3 [i].GetComponent<Renderer> ().material.color = randColor3;
+				}
+			}
 		}
 	}
 }

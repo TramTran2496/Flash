@@ -26,7 +26,7 @@ public class DotControls : Controls {
 				changeColor (colorIdx, (transform.position.y - nextRoundY - initialPos) / colorChange);
 			else{
 				colorIdx++;
-				trail.time = trail.time / (speed + 0.1f) * speed;
+				trail.time = trail.time / (speed + 0.5f) * speed;
 				speed = increaseSpeed ();
 				nextRoundY = toNextRound ();
 			}
