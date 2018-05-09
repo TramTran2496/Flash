@@ -8,7 +8,7 @@ public class DotControls : Controls {
 	private TrailRenderer trail;
 
 	private float LRmost = 1.75f;
-	private int LRsteps = 5;
+	private int LRsteps = 3;
 	private int colorIdx = 0;
 	private const int initialPos = -2;
 

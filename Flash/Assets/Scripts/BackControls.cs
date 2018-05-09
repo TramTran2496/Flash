@@ -15,6 +15,7 @@ public class BackControls : Controls {
 		renderer.material.color = Color.cyan;
 		score.text = "Score: 0";
 		round.text = "Round 1";
+		score.color = Color.cyan;
 	}
 	
 	// Update is called once per frame
@@ -60,6 +61,7 @@ public class BackControls : Controls {
 			break;
 		}
 		renderer.material.color = Color.Lerp (curColor, nextColor, colorParam);
+		score.color = Color.Lerp (curColor, nextColor, colorParam);
 	}
 
 	void showRound(float pos, float cycle){

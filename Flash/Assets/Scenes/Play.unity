@@ -273,7 +273,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 4
-  nextRoundY: 60
+  nextRoundY: 102
   score: {fileID: 24916679}
   round: {fileID: 282342260}
 --- !u!1 &282342258
@@ -669,7 +669,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 4
-  nextRoundY: 60
+  nextRoundY: 102
 --- !u!1 &1036261414
 GameObject:
   m_ObjectHideFlags: 0
@@ -711,9 +711,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 4
-  nextRoundY: 60
+  nextRoundY: 102
   glass: {fileID: 1710312148435578, guid: 25cc576f9b3cfc446a3442cb33ce8e62, type: 2}
-  round: {fileID: 0}
+  round: {fileID: 282342260}
 --- !u!1 &1289109185
 GameObject:
   m_ObjectHideFlags: 0
@@ -820,7 +820,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 4
-  nextRoundY: 60
+  nextRoundY: 102
 --- !u!50 &1289109190
 Rigidbody2D:
   serializedVersion: 4

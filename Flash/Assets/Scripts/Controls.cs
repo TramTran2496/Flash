@@ -6,8 +6,8 @@ public class Controls : MonoBehaviour {
 
 	public float speed = 4.0f;
 	public const float colorChange = 4.0f;
-	public int nextRoundY = 60;
-	private const int roundInterval = 60;
+	public int nextRoundY = 102;
+	private const int roundInterval = 102;
 
 	void Start () {
 		
