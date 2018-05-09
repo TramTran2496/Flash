@@ -1,22 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class DotControls : Controls {
 	
 	private Renderer renderer;
 	private TrailRenderer trail;
+	private GameObject gameOverMenu; 
+	private Text score;
 
 	private float LRmost = 1.75f;
 	private int LRsteps = 3;
 	private int colorIdx = 0;
 	private const int initialPos = -2;
+	private bool isGameOver = false;
 
 	void Start () {
 		renderer = GetComponent<Renderer>();
 		renderer.material.color = Color.cyan;
 		trail = GetComponent<TrailRenderer> ();
 		trail.material.color = Color.cyan;
+		gameOverMenu = GameObject.Find ("GameOver");
+		gameOverMenu.SetActive (false);
+		score = GameObject.Find ("Score").GetComponent<Text>();
 	}
 
 	void Update () {
@@ -31,13 +39,26 @@ public class DotControls : Controls {
 				nextRoundY = toNextRound ();
 			}
 		}
-		tappingHandle ();
+		if (!isGameOver)
+			tappingHandle ();
 	}
 
 	void OnCollisionEnter2D (Collision2D coll){
 		//TODO handle Player meet glass
-		if (coll.gameObject.tag == "glass")
+		Color collColor = coll.gameObject.GetComponent<Renderer>().material.color;
+
+		Debug.Log (collColor);
+		Debug.Log (renderer.material.color);
+		if (!renderer.material.color.Equals (collColor)) {
+			isGameOver = true;
+			trail.time = 0;
+			Time.timeScale = 0;
+			gameOverMenu.SetActive (true);
+			gameOverMenu.transform.Find ("EndScore").GetComponent<Text>().text = score.text;
 			Debug.Log ("game over");
+		} else {
+			coll.gameObject.GetComponent<BoxCollider2D> ().isTrigger = true;
+		}
 	}
 
 	void changeColor(int colorIdx, float colorParam) {
@@ -86,5 +107,17 @@ public class DotControls : Controls {
 					transform.Translate (new Vector3 (-transform.position.x, 0.0f));
 			}
 		}
+	}
+
+	public void retryButtonAction(){
+		trail.time = 1;
+		Time.timeScale = 1;
+		SceneManager.LoadScene (SceneManager.GetActiveScene().buildIndex);
+	}
+
+	public void quitButtonAction() {
+		trail.time = 1;
+		Time.timeScale = 1;
+		SceneManager.LoadScene (0);
 	}
 }
