@@ -43,9 +43,13 @@ public class MenuControls : MonoBehaviour {
 		tapLine.color = newColor;
 	}
 
-	public void TapEvent(){
+	public void tapEvent(){
 		//Stop blinking and change scene
 		CancelInvoke ();
 		SceneManager.LoadScene (SceneManager.GetActiveScene().buildIndex + 1);
+	}
+
+	public void settingButtonAction() {
+		SceneManager.LoadScene (2);
 	}
 }
