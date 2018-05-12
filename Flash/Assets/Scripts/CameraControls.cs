@@ -12,6 +12,10 @@ public class CameraControls : Controls {
 	// Update is called once per frame
 	void Update () {
 		transform.Translate (new Vector3 (0, Time.deltaTime * speed));
+		float backPos = GameObject.Find ("back").transform.position.y;
+		if (transform.position.y - backPos < 0){
+			transform.Translate (new Vector3 (transform.position.x, backPos - transform.position.y ));
+		}
 
 		if (transform.position.y - nextRoundY > colorChange){
 			speed = increaseSpeed ();

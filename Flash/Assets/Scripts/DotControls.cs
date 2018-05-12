@@ -25,13 +25,18 @@ public class DotControls : Controls {
 		gameOverMenu = GameObject.Find ("GameOver");
 		gameOverMenu.SetActive (false);
 		score = GameObject.Find ("Score").GetComponent<Text>();
+		score.color = Color.cyan;
 	}
 
 	void Update () {
 		transform.Translate (new Vector3 (0, Time.deltaTime * speed));
+		float backPos = GameObject.Find ("back").transform.position.y;
+		if (transform.position.y - backPos < initialPos){
+			transform.Translate (new Vector3 (transform.position.x, backPos - transform.position.y + initialPos));
+		}
 		if(transform.position.y > nextRoundY + initialPos){
 			if (transform.position.y - nextRoundY - initialPos <= colorChange)
-				changeColor (colorIdx, (transform.position.y - nextRoundY - initialPos) / colorChange);
+				changeColor (colorIdx, (transform.position.y - nextRoundY - initialPos) / (colorChange - 0.5f));
 			else{
 				colorIdx++;
 				trail.time = trail.time / (speed + 0.5f) * speed;
@@ -46,15 +51,14 @@ public class DotControls : Controls {
 	void OnCollisionEnter2D (Collision2D coll){
 		//TODO handle Player meet glass
 		Color collColor = coll.gameObject.GetComponent<Renderer>().material.color;
-
-		Debug.Log (collColor);
-		Debug.Log (renderer.material.color);
 		if (!renderer.material.color.Equals (collColor)) {
 			isGameOver = true;
 			trail.time = 0;
 			Time.timeScale = 0;
 			gameOverMenu.SetActive (true);
-			gameOverMenu.transform.Find ("EndScore").GetComponent<Text>().text = score.text;
+			Text endText = gameOverMenu.transform.Find ("EndScore").GetComponent<Text>();
+			endText.color = score.color;
+			endText.text = GameObject.Find ("Round").GetComponent<Text>().text + " - " + score.text;
 			Debug.Log ("game over");
 		} else {
 			coll.gameObject.GetComponent<BoxCollider2D> ().isTrigger = true;
@@ -88,10 +92,47 @@ public class DotControls : Controls {
 
 	void tappingHandle(){
 		if (Input.touchCount > 0){
-			if (Input.GetTouch (0).position.x < Screen.width / 2 && transform.position.x > -LRmost)
+			if (Input.GetTouch (0).position.x < Screen.width / 2 && transform.position.x > -LRmost){
+				if (transform.position.x >= -LRmost * (LRsteps - 1) / LRsteps)
+					transform.Translate (new Vector3 (-LRmost / LRsteps, 0.0f));
+				else
+					transform.Translate (new Vector3 (-LRmost - transform.position.x, 0.0f));
+			}
+			else if (Input.GetTouch (0).position.x > Screen.width / 2 && transform.position.x < LRmost){
+				if (transform.position.x <= LRmost * (LRsteps - 1) / LRsteps)
+					transform.Translate (new Vector3 (LRmost / LRsteps, 0.0f));
+				else
+					transform.Translate (new Vector3 (LRmost - transform.position.x, 0.0f));
+			}
+		}
+		else{
+			if (transform.position.x < 0){
+				if (transform.position.x < -LRmost / LRsteps)
+					transform.Translate (new Vector3 (LRmost / LRsteps, 0.0f));
+				else
+					transform.Translate (new Vector3 (-transform.position.x, 0.0f));
+			}
+			else if (transform.position.x > 0){
+				if (transform.position.x > LRmost / LRsteps)
+					transform.Translate (new Vector3 (-LRmost / LRsteps, 0.0f));
+				else
+					transform.Translate (new Vector3 (-transform.position.x, 0.0f));
+			}
+		}
+	}
+
+	void move(){
+		if (Input.GetKey(KeyCode.LeftArrow) && transform.position.x > -LRmost){
+			if (transform.position.x >= -LRmost * (LRsteps - 1) / LRsteps)
 				transform.Translate (new Vector3 (-LRmost / LRsteps, 0.0f));
-			else if (Input.GetTouch (0).position.x > Screen.width / 2 && transform.position.x < LRmost)
+			else
+				transform.Translate (new Vector3 (-LRmost - transform.position.x, 0.0f));
+		}
+		else if (Input.GetKey(KeyCode.RightArrow) && transform.position.x < LRmost){
+			if (transform.position.x <= LRmost * (LRsteps - 1) / LRsteps)
 				transform.Translate (new Vector3 (LRmost / LRsteps, 0.0f));
+			else
+				transform.Translate (new Vector3 (LRmost - transform.position.x, 0.0f));
 		}
 		else{
 			if (transform.position.x < 0){

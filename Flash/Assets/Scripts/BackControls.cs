@@ -21,14 +21,13 @@ public class BackControls : Controls {
 	// Update is called once per frame
 	void Update () {
 		transform.Translate (new Vector3 (0, Time.deltaTime * speed));
-
 		score.text = "Score: " + Mathf.Floor (transform.position.y).ToString ();
 
 		if (transform.position.y <= colorChange)
 			showRound (transform.position.y, colorChange / 2);
 		else if (transform.position.y > nextRoundY) {
 			if (transform.position.y - nextRoundY <= colorChange) {
-				changeColor (colorIdx, (transform.position.y - nextRoundY) / colorChange);
+				changeColor (colorIdx, (transform.position.y - nextRoundY) / (colorChange - 0.5f));
 				round.text = "Round " + getRound ().ToString ();
 				showRound (transform.position.y - nextRoundY, colorChange / 2);
 			} else {

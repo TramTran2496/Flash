@@ -25,8 +25,7 @@ public class GlassControls : Controls {
 	
 	// Update is called once per frame
 	void Update () {
-		transform.Translate (new Vector3 (0, Time.deltaTime * speed));
-		if (transform.position.y - nextRoundY > colorChange){
+		if (GameObject.Find ("back").transform.position.y - nextRoundY > colorChange){
 			speed = increaseSpeed ();
 			nextRoundY = toNextRound ();
 			yStart += 2 * yDistance;
