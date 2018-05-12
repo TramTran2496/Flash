@@ -19,6 +19,7 @@ public class DotControls : Controls {
 	private int colorIdx = 0;
 	private const int initialPos = -2;
 	private bool isGameOver = false;
+	public Button replayBtn, homeBtn;
 
 	void Start () {
 		renderer = GetComponent<Renderer>();
@@ -31,6 +32,8 @@ public class DotControls : Controls {
 		round.text = "Round 1";
 		score.color = Color.cyan;
 		bestScore = PlayerPrefs.GetInt ("bestscore", bestScore);
+		replayBtn.onClick.AddListener(retryButtonAction);
+		homeBtn.onClick.AddListener(quitButtonAction);
 	}
 
 	void Update () {
