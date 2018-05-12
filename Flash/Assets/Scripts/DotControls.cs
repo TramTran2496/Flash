@@ -11,8 +11,8 @@ public class DotControls : Controls {
 	private GameObject gameOverMenu; 
 	private Text score;
 
-	private float LRmost = 1.75f;
-	private int LRsteps = 3;
+	private float LRmost = 1.8f;
+	private int LRsteps = 2;
 	private int colorIdx = 0;
 	private const int initialPos = -2;
 	private bool isGameOver = false;
@@ -39,7 +39,7 @@ public class DotControls : Controls {
 				changeColor (colorIdx, (transform.position.y - nextRoundY - initialPos) / (colorChange - 0.5f));
 			else{
 				colorIdx++;
-				trail.time = trail.time / (speed + 0.5f) * speed;
+				trail.time = trail.time / (speed + 1) * speed;
 				speed = increaseSpeed ();
 				nextRoundY = toNextRound ();
 			}

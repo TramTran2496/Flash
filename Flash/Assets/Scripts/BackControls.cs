@@ -9,6 +9,8 @@ public class BackControls : Controls {
 	private int colorIdx = 0;
 	public Text score;
 	public Text round;
+	public Text bestText;
+	private int bestScore;
 	// Use this for initialization
 	void Start () {
 		renderer = GetComponent<Renderer>();
@@ -16,12 +18,14 @@ public class BackControls : Controls {
 		score.text = "Score: 0";
 		round.text = "Round 1";
 		score.color = Color.cyan;
+		bestScore = PlayerPrefs.GetInt ("bestscore", bestScore);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		transform.Translate (new Vector3 (0, Time.deltaTime * speed));
-		score.text = "Score: " + Mathf.Floor (transform.position.y).ToString ();
+		int scoreNo = (int)transform.position.y;
+		score.text = "Score: " + scoreNo.ToString ();
 
 		if (transform.position.y <= colorChange)
 			showRound (transform.position.y, colorChange / 2);
@@ -36,6 +40,11 @@ public class BackControls : Controls {
 				nextRoundY = toNextRound ();
 			}
 		}
+		if (scoreNo > bestScore){
+			bestScore = scoreNo;
+			PlayerPrefs.SetInt ("bestscore", bestScore);
+		}
+		bestText.text = "Best Score: " + bestScore;
 	}
 
 	void changeColor(int colorIdx, float colorParam) {
