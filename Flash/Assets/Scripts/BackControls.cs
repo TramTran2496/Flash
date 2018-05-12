@@ -7,44 +7,25 @@ public class BackControls : Controls {
 	
 	private Renderer renderer;
 	private int colorIdx = 0;
-	public Text score;
-	public Text round;
-	public Text bestText;
-	private int bestScore;
 	// Use this for initialization
 	void Start () {
 		renderer = GetComponent<Renderer>();
 		renderer.material.color = Color.cyan;
-		score.text = "Score: 0";
-		round.text = "Round 1";
-		score.color = Color.cyan;
-		bestScore = PlayerPrefs.GetInt ("bestscore", bestScore);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		transform.Translate (new Vector3 (0, Time.deltaTime * speed));
-		int scoreNo = (int)transform.position.y;
-		score.text = "Score: " + scoreNo.ToString ();
 
-		if (transform.position.y <= colorChange)
-			showRound (transform.position.y, colorChange / 2);
-		else if (transform.position.y > nextRoundY) {
+		if (transform.position.y > nextRoundY) {
 			if (transform.position.y - nextRoundY <= colorChange) {
 				changeColor (colorIdx, (transform.position.y - nextRoundY) / (colorChange - 0.5f));
-				round.text = "Round " + getRound ().ToString ();
-				showRound (transform.position.y - nextRoundY, colorChange / 2);
 			} else {
 				colorIdx++;
 				speed = increaseSpeed ();
 				nextRoundY = toNextRound ();
 			}
 		}
-		if (scoreNo > bestScore){
-			bestScore = scoreNo;
-			PlayerPrefs.SetInt ("bestscore", bestScore);
-		}
-		bestText.text = "Best Score: " + bestScore;
 	}
 
 	void changeColor(int colorIdx, float colorParam) {
@@ -69,13 +50,5 @@ public class BackControls : Controls {
 			break;
 		}
 		renderer.material.color = Color.Lerp (curColor, nextColor, colorParam);
-		score.color = Color.Lerp (curColor, nextColor, colorParam);
-	}
-
-	void showRound(float pos, float cycle){
-		if (pos <= cycle)
-			round.color = Color.Lerp (new Color (1, 1, 1, 0), Color.white, pos / cycle);
-		else
-			round.color = Color.Lerp (Color.white, new Color (1, 1, 1, 0), (pos - cycle) / cycle);
 	}
 }

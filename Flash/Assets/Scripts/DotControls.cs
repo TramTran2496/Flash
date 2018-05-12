@@ -8,8 +8,11 @@ public class DotControls : Controls {
 	
 	private Renderer renderer;
 	private TrailRenderer trail;
-	private GameObject gameOverMenu; 
-	private Text score;
+	private GameObject gameOverMenu;
+	public Text score;
+	public Text round;
+	public Text bestText;
+	private int bestScore;
 
 	private float LRmost = 1.8f;
 	private int LRsteps = 2;
@@ -24,28 +27,44 @@ public class DotControls : Controls {
 		trail.material.color = Color.cyan;
 		gameOverMenu = GameObject.Find ("GameOver");
 		gameOverMenu.SetActive (false);
-		score = GameObject.Find ("Score").GetComponent<Text>();
+		score.text = "Score: 0";
+		round.text = "Round 1";
 		score.color = Color.cyan;
+		bestScore = PlayerPrefs.GetInt ("bestscore", bestScore);
 	}
 
 	void Update () {
-		transform.Translate (new Vector3 (0, Time.deltaTime * speed));
-		float backPos = GameObject.Find ("back").transform.position.y;
-		if (transform.position.y - backPos < initialPos){
-			transform.Translate (new Vector3 (0.0f, backPos - transform.position.y + initialPos));
-		}
-		if(transform.position.y > nextRoundY + initialPos){
-			if (transform.position.y - nextRoundY - initialPos <= colorChange)
-				changeColor (colorIdx, (transform.position.y - nextRoundY - initialPos) / (colorChange - 0.5f));
-			else{
+		if (!isGameOver){
+			transform.Translate (new Vector3 (0, Time.deltaTime * speed));
+			float backPos = GameObject.Find ("back").transform.position.y;
+
+			if (transform.position.y - backPos < initialPos){
+				transform.Translate (new Vector3 (0.0f, backPos - transform.position.y + initialPos));
+			}
+			if (backPos <= colorChange)
+				showRound (backPos, colorChange / 2);
+			else if (transform.position.y > nextRoundY + initialPos){
+				if (transform.position.y - nextRoundY - initialPos <= colorChange){
+					changeColor (colorIdx, (transform.position.y - nextRoundY - initialPos) / (colorChange - 0.5f));
+					round.text = "Round " + getRound ().ToString ();
+					showRound (backPos - nextRoundY, colorChange / 2);
+				}
+				else{
 				colorIdx++;
-				trail.time = trail.time / (speed + 1) * speed;
-				speed = increaseSpeed ();
-				nextRoundY = toNextRound ();
+					trail.time = trail.time / (speed + 1) * speed;
+					speed = increaseSpeed ();
+					nextRoundY = toNextRound ();
+				}
+			}
+			tappingHandle ();
+			int scoreNo = (int)backPos;
+			score.text = "Score: " + scoreNo.ToString ();
+			if (scoreNo > bestScore){
+				bestScore = scoreNo;
+				PlayerPrefs.SetInt ("bestscore", bestScore);
 			}
 		}
-		if (!isGameOver)
-			tappingHandle ();
+		bestText.text = "Best Score: " + bestScore;
 	}
 
 	void OnCollisionEnter2D (Collision2D coll){
@@ -55,10 +74,10 @@ public class DotControls : Controls {
 			isGameOver = true;
 			trail.time = 0;
 			Time.timeScale = 0;
-			gameOverMenu.SetActive (true);
 			Text endText = gameOverMenu.transform.Find ("EndScore").GetComponent<Text>();
 			endText.color = score.color;
 			endText.text = GameObject.Find ("Round").GetComponent<Text>().text + '\n' + score.text;
+			gameOverMenu.SetActive (true);
 			Debug.Log ("game over");
 		} else {
 			coll.gameObject.GetComponent<BoxCollider2D> ().isTrigger = true;
@@ -88,6 +107,14 @@ public class DotControls : Controls {
 		}
 		renderer.material.color = Color.Lerp (curColor, nextColor, colorParam);
 		trail.material.color = Color.Lerp (curColor, nextColor, colorParam);
+		score.color = Color.Lerp (curColor, nextColor, colorParam);
+	}
+
+	void showRound(float pos, float cycle){
+		if (pos <= cycle)
+			round.color = Color.Lerp (new Color (1, 1, 1, 0), Color.white, pos / cycle);
+		else
+			round.color = Color.Lerp (Color.white, new Color (1, 1, 1, 0), (pos - cycle) / cycle);
 	}
 
 	void tappingHandle(){
