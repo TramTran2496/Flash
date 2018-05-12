@@ -32,7 +32,7 @@ public class DotControls : Controls {
 		transform.Translate (new Vector3 (0, Time.deltaTime * speed));
 		float backPos = GameObject.Find ("back").transform.position.y;
 		if (transform.position.y - backPos < initialPos){
-			transform.Translate (new Vector3 (transform.position.x, backPos - transform.position.y + initialPos));
+			transform.Translate (new Vector3 (0.0f, backPos - transform.position.y + initialPos));
 		}
 		if(transform.position.y > nextRoundY + initialPos){
 			if (transform.position.y - nextRoundY - initialPos <= colorChange)
@@ -58,7 +58,7 @@ public class DotControls : Controls {
 			gameOverMenu.SetActive (true);
 			Text endText = gameOverMenu.transform.Find ("EndScore").GetComponent<Text>();
 			endText.color = score.color;
-			endText.text = GameObject.Find ("Round").GetComponent<Text>().text + " - " + score.text;
+			endText.text = GameObject.Find ("Round").GetComponent<Text>().text + '\n' + score.text;
 			Debug.Log ("game over");
 		} else {
 			coll.gameObject.GetComponent<BoxCollider2D> ().isTrigger = true;
