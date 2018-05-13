@@ -9,17 +9,19 @@ public class DotControls : Controls {
 	private Renderer renderer;
 	private TrailRenderer trail;
 	private GameObject gameOverMenu;
+	private GameObject pauseMenu;
 	public Text score;
 	public Text round;
 	public Text bestText;
 	private int bestScore;
+	private float curTimeScale;
 
 	private float LRmost = 1.8f;
 	private int LRsteps = 2;
 	private int colorIdx = 0;
 	private const int initialPos = -2;
 	private bool isGameOver = false;
-	public Button replayBtn, homeBtn;
+	public Button replayBtn, homeBtn, pauseBtn, playBtn, homeBtn2;
 
 	void Start () {
 		renderer = GetComponent<Renderer>();
@@ -34,6 +36,11 @@ public class DotControls : Controls {
 		bestScore = PlayerPrefs.GetInt ("bestscore", bestScore);
 		replayBtn.onClick.AddListener(retryButtonAction);
 		homeBtn.onClick.AddListener(quitButtonAction);
+		homeBtn2.onClick.AddListener (quitButtonAction);
+		pauseBtn.onClick.AddListener(pauseButtonAction);
+		playBtn.onClick.AddListener(playButtonAction);
+		pauseMenu = GameObject.Find ("PauseMenu");
+		pauseMenu.SetActive (false);
 	}
 
 	void Update () {
@@ -190,5 +197,16 @@ public class DotControls : Controls {
 		trail.time = 1;
 		Time.timeScale = 1;
 		SceneManager.LoadScene (0);
+	}
+
+	public void pauseButtonAction() {
+		curTimeScale = Time.timeScale;
+		Time.timeScale = 0;
+		pauseMenu.SetActive (true);
+	}
+
+	public void playButtonAction() {
+		pauseMenu.SetActive (false);
+		Time.timeScale = curTimeScale;
 	}
 }
