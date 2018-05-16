@@ -10,7 +10,7 @@ public class SettingControls : MonoBehaviour {
 	private Sprite unmuteSprite;
 	private MusicClass music;
 	private Slider slider;
-
+	private float volume;
 	private bool mute = false;
 
 	// Use this for initialization
@@ -20,6 +20,18 @@ public class SettingControls : MonoBehaviour {
 		unmuteSprite = Resources.Load<Sprite>("style01/shape009_style01_color08");
 		music = GameObject.Find ("SoundManager").GetComponent<MusicClass> ();
 		slider = GameObject.Find ("Slider").GetComponent<Slider> ();
+
+		volume = PlayerPrefs.GetFloat ("volume", volume);
+		slider.value = volume;
+		int m = 0;
+		mute = PlayerPrefs.GetInt ("mute", m) == 0 ? false : true;
+		if (mute) {
+			buttonImage.sprite = muteSprite;
+			music.StopMusic ();
+		} else {
+			buttonImage.sprite = unmuteSprite;
+			music.PlayMusic ();
+		}
 	}
 	
 	// Update is called once per frame
@@ -31,11 +43,13 @@ public class SettingControls : MonoBehaviour {
 		//TODO: handle music setting
 		if (mute) {
 			buttonImage.sprite = unmuteSprite;
+			PlayerPrefs.SetInt ("mute", 0);
 			music.PlayMusic ();
 		} else {
 			buttonImage.sprite = muteSprite;
+			PlayerPrefs.SetInt ("mute", 1);
 			music.StopMusic ();
-		}	
+		}
 		mute = !mute;
 	}
 
@@ -44,6 +58,8 @@ public class SettingControls : MonoBehaviour {
 	}
 
 	public void setMusicVolume() {
-		music._audioSource.volume = slider.value;
+		volume = slider.value;
+		PlayerPrefs.SetFloat ("volume", volume);
+		music._audioSource.volume = volume;
 	}
 }

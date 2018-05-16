@@ -21,7 +21,13 @@ public class DotControls : Controls {
 	private int colorIdx = 0;
 	private const int initialPos = -2;
 	private bool isGameOver = false;
-	public Button replayBtn, homeBtn, pauseBtn, playBtn, homeBtn2;
+	public Button replayBtn, homeBtn, pauseBtn, playBtn, homeBtn2, muteBtn;
+	private MusicClass music;
+	private bool mute;
+	private Sprite muteSprite;
+	private Sprite unmuteSprite;
+	private Image buttonImage;
+	private float volume;
 
 	void Start () {
 		renderer = GetComponent<Renderer>();
@@ -39,8 +45,19 @@ public class DotControls : Controls {
 		homeBtn2.onClick.AddListener (quitButtonAction);
 		pauseBtn.onClick.AddListener(pauseButtonAction);
 		playBtn.onClick.AddListener(playButtonAction);
+		muteBtn.onClick.AddListener (muteButtonAction);		
 		pauseMenu = GameObject.Find ("PauseMenu");
 		pauseMenu.SetActive (false);
+
+		music = GameObject.Find ("SoundManager").GetComponent<MusicClass> ();
+		buttonImage = muteBtn.GetComponent<Image>();
+		int m = 0;
+		mute = PlayerPrefs.GetInt ("mute", m) == 0 ? false : true;
+		muteSprite = Resources.Load<Sprite> ("style01/shape010_style01_color08");
+		unmuteSprite = Resources.Load<Sprite> ("style01/shape009_style01_color08");
+		if (mute)
+			buttonImage.sprite = muteSprite;
+		volume = PlayerPrefs.GetFloat ("volume", volume);
 	}
 
 	void Update () {
@@ -208,5 +225,19 @@ public class DotControls : Controls {
 	public void playButtonAction() {
 		pauseMenu.SetActive (false);
 		Time.timeScale = curTimeScale;
+	}
+
+	public void muteButtonAction() {
+		if (mute) {
+			buttonImage.sprite = unmuteSprite;
+			PlayerPrefs.SetInt ("mute", 0);
+			music.PlayMusic ();
+			music._audioSource.volume = volume;
+		} else {
+			buttonImage.sprite = muteSprite;
+			PlayerPrefs.SetInt ("mute", 1);
+			music.StopMusic ();
+		}
+		mute = !mute;
 	}
 }
