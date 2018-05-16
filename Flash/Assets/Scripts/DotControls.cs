@@ -28,6 +28,7 @@ public class DotControls : Controls {
 	private Sprite unmuteSprite;
 	private Image buttonImage;
 	private float volume;
+	private bool stopMoving = false;
 
 	void Start () {
 		renderer = GetComponent<Renderer>();
@@ -61,7 +62,7 @@ public class DotControls : Controls {
 	}
 
 	void Update () {
-		if (!isGameOver){
+		if (!stopMoving){
 			transform.Translate (new Vector3 (0, Time.deltaTime * speed));
 			float backPos = GameObject.Find ("back").transform.position.y;
 
@@ -98,13 +99,14 @@ public class DotControls : Controls {
 		//TODO handle Player meet glass
 		Color collColor = coll.gameObject.GetComponent<Renderer>().material.color;
 		if (!renderer.material.color.Equals (collColor)) {
-			isGameOver = true;
+			stopMoving = true;
 			trail.time = 0;
 			Time.timeScale = 0;
 			Text endText = gameOverMenu.transform.Find ("EndScore").GetComponent<Text>();
 			endText.color = score.color;
 			endText.text = GameObject.Find ("Round").GetComponent<Text>().text + '\n' + score.text;
 			gameOverMenu.SetActive (true);
+			pauseBtn.enabled = false;
 			Debug.Log ("game over");
 		} else {
 			coll.gameObject.GetComponent<BoxCollider2D> ().isTrigger = true;
@@ -217,12 +219,14 @@ public class DotControls : Controls {
 	}
 
 	public void pauseButtonAction() {
+		stopMoving = true;
 		curTimeScale = Time.timeScale;
 		Time.timeScale = 0;
 		pauseMenu.SetActive (true);
 	}
 
 	public void playButtonAction() {
+		stopMoving = false;
 		pauseMenu.SetActive (false);
 		Time.timeScale = curTimeScale;
 	}
