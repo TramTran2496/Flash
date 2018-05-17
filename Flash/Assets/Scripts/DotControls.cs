@@ -220,6 +220,7 @@ public class DotControls : Controls {
 
 	public void pauseButtonAction() {
 		stopMoving = true;
+		pauseBtn.enabled = false;
 		curTimeScale = Time.timeScale;
 		Time.timeScale = 0;
 		pauseMenu.SetActive (true);
@@ -227,6 +228,7 @@ public class DotControls : Controls {
 
 	public void playButtonAction() {
 		stopMoving = false;
+		pauseBtn.enabled = true;
 		pauseMenu.SetActive (false);
 		Time.timeScale = curTimeScale;
 	}
