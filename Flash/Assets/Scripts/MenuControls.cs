@@ -52,4 +52,8 @@ public class MenuControls : MonoBehaviour {
 	public void settingButtonAction() {
 		SceneManager.LoadScene (2);
 	}
+
+	public void tutorialButtonAction() {
+		SceneManager.LoadScene (3);
+	}
 }

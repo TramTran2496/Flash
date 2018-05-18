@@ -59,6 +59,7 @@
      <Compile Include="Assets\Scripts\MenuControls.cs" />
      <Compile Include="Assets\Scripts\MusicClass.cs" />
      <Compile Include="Assets\Scripts\SettingControls.cs" />
+     <Compile Include="Assets\Scripts\TutorialControls.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

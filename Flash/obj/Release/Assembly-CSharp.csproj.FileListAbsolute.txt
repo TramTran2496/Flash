@@ -78,3 +78,43 @@ C:\Users\Asus PU401LAC\OneDrive\BK172\DD\trunk\Flash\Temp\bin\Release\UnityEngin
 C:\Users\Asus PU401LAC\OneDrive\BK172\DD\trunk\Flash\obj\Release\Assembly-CSharp.csprojResolveAssemblyReference.cache
 C:\Users\Asus PU401LAC\OneDrive\BK172\DD\trunk\Flash\obj\Release\Assembly-CSharp.dll
 C:\Users\Asus PU401LAC\OneDrive\BK172\DD\trunk\Flash\obj\Release\Assembly-CSharp.pdb
+D:\DD\BTL\trunk\Flash\Temp\bin\Release\Assembly-CSharp.dll
+D:\DD\BTL\trunk\Flash\Temp\bin\Release\Assembly-CSharp.pdb
+D:\DD\BTL\trunk\Flash\Temp\bin\Release\nunit.framework.dll
+D:\DD\BTL\trunk\Flash\Temp\bin\Release\UnityEditor.dll
+D:\DD\BTL\trunk\Flash\Temp\bin\Release\UnityEngine.Advertisements.dll
+D:\DD\BTL\trunk\Flash\Temp\bin\Release\UnityEngine.Analytics.dll
+D:\DD\BTL\trunk\Flash\Temp\bin\Release\UnityEngine.dll
+D:\DD\BTL\trunk\Flash\Temp\bin\Release\UnityEngine.GoogleAudioSpatializer.dll
+D:\DD\BTL\trunk\Flash\Temp\bin\Release\UnityEngine.HoloLens.dll
+D:\DD\BTL\trunk\Flash\Temp\bin\Release\UnityEngine.Networking.dll
+D:\DD\BTL\trunk\Flash\Temp\bin\Release\UnityEngine.Purchasing.dll
+D:\DD\BTL\trunk\Flash\Temp\bin\Release\UnityEngine.SpatialTracking.dll
+D:\DD\BTL\trunk\Flash\Temp\bin\Release\UnityEngine.StandardEvents.dll
+D:\DD\BTL\trunk\Flash\Temp\bin\Release\UnityEngine.TestRunner.dll
+D:\DD\BTL\trunk\Flash\Temp\bin\Release\UnityEngine.Timeline.dll
+D:\DD\BTL\trunk\Flash\Temp\bin\Release\UnityEngine.UI.dll
+D:\DD\BTL\trunk\Flash\Temp\bin\Release\UnityEngine.UIAutomation.dll
+D:\DD\BTL\trunk\Flash\Temp\bin\Release\Unity.Cecil.dll
+D:\DD\BTL\trunk\Flash\Temp\bin\Release\Unity.SerializationLogic.dll
+D:\DD\BTL\trunk\Flash\Temp\bin\Release\Unity.DataContract.dll
+D:\DD\BTL\trunk\Flash\Temp\bin\Release\ExCSS.Unity.dll
+D:\DD\BTL\trunk\Flash\Temp\bin\Release\Unity.Legacy.NRefactory.dll
+D:\DD\BTL\trunk\Flash\Temp\bin\Release\Unity.UNetWeaver.dll
+D:\DD\BTL\trunk\Flash\Temp\bin\Release\Unity.CecilTools.dll
+D:\DD\BTL\trunk\Flash\Temp\bin\Release\Unity.Cecil.Pdb.dll
+D:\DD\BTL\trunk\Flash\Temp\bin\Release\Unity.Cecil.Mdb.dll
+D:\DD\BTL\trunk\Flash\Temp\bin\Release\UnityEngine.xml
+D:\DD\BTL\trunk\Flash\Temp\bin\Release\UnityEditor.xml
+D:\DD\BTL\trunk\Flash\Temp\bin\Release\UnityEngine.UI.xml
+D:\DD\BTL\trunk\Flash\Temp\bin\Release\UnityEngine.Networking.xml
+D:\DD\BTL\trunk\Flash\Temp\bin\Release\UnityEngine.TestRunner.xml
+D:\DD\BTL\trunk\Flash\Temp\bin\Release\nunit.framework.xml
+D:\DD\BTL\trunk\Flash\Temp\bin\Release\UnityEngine.Timeline.xml
+D:\DD\BTL\trunk\Flash\Temp\bin\Release\UnityEngine.UIAutomation.xml
+D:\DD\BTL\trunk\Flash\Temp\bin\Release\UnityEngine.GoogleAudioSpatializer.xml
+D:\DD\BTL\trunk\Flash\Temp\bin\Release\UnityEngine.HoloLens.xml
+D:\DD\BTL\trunk\Flash\Temp\bin\Release\UnityEngine.SpatialTracking.xml
+D:\DD\BTL\trunk\Flash\obj\Release\Assembly-CSharp.csprojResolveAssemblyReference.cache
+D:\DD\BTL\trunk\Flash\obj\Release\Assembly-CSharp.dll
+D:\DD\BTL\trunk\Flash\obj\Release\Assembly-CSharp.pdb

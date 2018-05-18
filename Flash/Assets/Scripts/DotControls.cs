@@ -20,7 +20,6 @@ public class DotControls : Controls {
 	private int LRsteps = 2;
 	private int colorIdx = 0;
 	private const int initialPos = -2;
-	private bool isGameOver = false;
 	public Button replayBtn, homeBtn, pauseBtn, playBtn, homeBtn2, muteBtn;
 	private MusicClass music;
 	private bool mute;
