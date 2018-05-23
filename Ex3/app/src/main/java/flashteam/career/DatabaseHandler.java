@@ -14,6 +14,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "jobDB.db";
     public static final String TABLE_NAME = "Job";
+    public static final String TABLE_NAME2 = "SavedJob";
     public static final String COLUMN_TITLE = "Title";
     public static final String COLUMN_DESC = "Description";
     public static final String COLUMN_SALARY = "Salary";
@@ -26,6 +27,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + "(" + COLUMN_TITLE + " NTEXT,"
+        + COLUMN_DESC + " NTEXT," + COLUMN_SALARY + " NTEXT," + COLUMN_COMP + " NTEXT," + COLUMN_ADDR + " NTEXT )";
+        db.execSQL(CREATE_TABLE);
+        CREATE_TABLE = "CREATE TABLE " + TABLE_NAME2 + "(" + COLUMN_TITLE + " NTEXT,"
         + COLUMN_DESC + " NTEXT," + COLUMN_SALARY + " NTEXT," + COLUMN_COMP + " NTEXT," + COLUMN_ADDR + " NTEXT )";
         db.execSQL(CREATE_TABLE);
     }
@@ -95,5 +99,53 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return jobs;
+    }
+
+    public List<Job> loadSavedHandler(){
+        List<Job> result = new ArrayList<Job>();
+        String query = "Select * FROM " + TABLE_NAME2;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        while (cursor.moveToNext()) {
+            result.add(new Job(cursor.getString(0), cursor.getString(1), cursor.getString(2),
+                    cursor.getString(3), cursor.getString(4)));
+        }
+        cursor.close();
+        db.close();
+        return result;
+    }
+
+    public boolean addSavedHandler(Job job) {
+        String query = "Select * FROM " + TABLE_NAME2
+                        + " WHERE " + COLUMN_TITLE + "='" + job.getTitle() + "' AND "
+                        + COLUMN_COMP + "='" + job.getCompany() + "'";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.getCount()>0) {
+            return false;
+        } else {
+            ContentValues values = new ContentValues();
+
+            values.put(COLUMN_TITLE, job.getTitle());
+            values.put(COLUMN_DESC, job.getDescription());
+            values.put(COLUMN_SALARY, job.getSalary());
+            values.put(COLUMN_COMP, job.getCompany());
+            values.put(COLUMN_ADDR, job.getAddress());
+            db.insert(TABLE_NAME2, null, values);
+        }
+        db.close();
+        cursor.close();
+        return true;
+    }
+
+    public void deleteSavedHandler(Job job) {
+        String query = "DELETE FROM " + TABLE_NAME2
+                        + " WHERE " + COLUMN_TITLE + "='" + job.getTitle() + "' AND "
+                + COLUMN_COMP + "='" + job.getCompany() + "'";
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.execSQL(query);
+        db.close();
     }
 }

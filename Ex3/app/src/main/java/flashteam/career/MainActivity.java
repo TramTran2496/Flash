@@ -2,10 +2,14 @@ package flashteam.career;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private List<Job> jobList;
     private String[] districts = {"All", "District 1", "District 2", "District 3", "District 4", "District 5", "District 6", "District 7",
-            "District 8", "District 9", "District 10", "District 11", "District 12", "Tan Binh", "Phu My Hung"};
+            "District 8", "District 9", "District 10", "District 11", "District 12", "Phu Nhuan", "Tan Binh", "Phu My Hung"};
     private int address = 0;
     DatabaseHandler dbHandler;
 
@@ -114,6 +118,41 @@ public class MainActivity extends AppCompatActivity {
         }
         ListView view = (ListView) findViewById(R.id.view);
         view.setAdapter(new ArrayAdapter<String>(MainActivity.this, R.layout.row, R.id.text, jobString));
+        //add view item listener
+        view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, final int position, long id) {
+                //create alert dialog
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setMessage("Do you want to save this job?");
+                builder.setCancelable(true);
+
+                builder.setPositiveButton(
+                        "Yes",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                ListView view = (ListView) findViewById(R.id.view);
+                                Job clickedJob = jobList.get(position);
+                                if (!dbHandler.addSavedHandler(clickedJob)) {
+                                    Toast.makeText(MainActivity.this, "Job already saved.", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(MainActivity.this, "Job saved.", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+
+                builder.setNegativeButton(
+                        "No",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+        });
     }
 
     private class GetContentFromURL extends AsyncTask<Void, Void, Document> {
@@ -185,5 +224,10 @@ public class MainActivity extends AppCompatActivity {
             }
             return job;
         }
+    }
+
+    public void viewSavedJob(View view){
+        Intent intent = new Intent(this, SavedJobActivity.class);
+        startActivity(intent);
     }
 }
