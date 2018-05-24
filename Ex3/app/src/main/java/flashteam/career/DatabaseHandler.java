@@ -34,7 +34,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE);
     }
     @Override
-    public void onUpgrade(SQLiteDatabase db, int i, int i1) {}
+    public void onUpgrade(SQLiteDatabase db, int i, int i1) {
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME2);
+        onCreate(db);
+    }
 
     public List<Job> loadHandler() {
         List<Job> result = new ArrayList<Job>();
@@ -49,16 +53,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
         return result;
     }
-    public void addHandler(Job job, int id) {
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_TITLE, job.getTitle());
-        values.put(COLUMN_DESC, job.getDescription());
-        values.put(COLUMN_SALARY, job.getSalary());
-        values.put(COLUMN_COMP, job.getCompany());
-        values.put(COLUMN_ADDR, job.getAddress());
+    public boolean addHandler(Job job, int id) {
+        String query = "Select * FROM " + TABLE_NAME
+                + " WHERE " + COLUMN_TITLE + "='" + job.getTitle() + "' AND "
+                + COLUMN_COMP + "='" + job.getCompany() + "'";
         SQLiteDatabase db = this.getWritableDatabase();
-        db.insert(TABLE_NAME, null, values);
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.getCount() > 0) {
+            return false;
+        } else {
+            ContentValues values = new ContentValues();
+            values.put(COLUMN_TITLE, job.getTitle());
+            values.put(COLUMN_DESC, job.getDescription());
+            values.put(COLUMN_SALARY, job.getSalary());
+            values.put(COLUMN_COMP, job.getCompany());
+            values.put(COLUMN_ADDR, job.getAddress());
+            db.insert(TABLE_NAME, null, values);
+        }
+        cursor.close();
         db.close();
+        return true;
     }
     public void deleteAllHandler() {
         String query = "DELETE FROM " + TABLE_NAME;

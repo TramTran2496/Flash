@@ -1,26 +1,26 @@
 package flashteam.career;
 
-import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.annotation.NonNull;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONObject;
@@ -33,16 +33,13 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 public class MainActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private List<Job> jobList;
     private String[] districts = {"All", "District 1", "District 2", "District 3", "District 4", "District 5", "District 6", "District 7",
-            "District 8", "District 9", "District 10", "District 11", "District 12", "Phu Nhuan", "Tan Binh", "Phu My Hung"};
+            "District 8", "District 9", "District 10", "District 11", "District 12", "Phu Nhuan", "Tan Binh"};
     private int address = 0;
     DatabaseHandler dbHandler;
 
@@ -94,6 +91,32 @@ public class MainActivity extends AppCompatActivity {
 
         GetContentFromURL getContentFromURL = new GetContentFromURL(url, idPost);
         getContentFromURL.execute();
+    }
+
+    public void noti(String title, String text)  {
+        Context mContext = this.getApplicationContext();
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(mContext.getApplicationContext(), "notify_001");
+        Intent ii = new Intent(mContext.getApplicationContext(), MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(mContext, 0, ii, 0);
+
+        mBuilder.setContentIntent(pendingIntent);
+        mBuilder.setSmallIcon(R.drawable.ic_launcher_background);
+        mBuilder.setContentTitle(title);
+        mBuilder.setContentText(text);
+        mBuilder.setAutoCancel(true);
+
+        NotificationManager mNotificationManager =
+                (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel("notify_001",
+                    "Channel human readable title",
+                    NotificationManager.IMPORTANCE_DEFAULT);
+            mNotificationManager.createNotificationChannel(channel);
+        }
+
+        mNotificationManager.notify(0, mBuilder.build());
     }
 
     public void search() {
@@ -191,17 +214,14 @@ public class MainActivity extends AppCompatActivity {
                 Elements listElement = element.getAllElements();
                 Element childElement = listElement.get(2);
                 Elements jobs = childElement.getElementsByTag("script");
-                jobList = new ArrayList<Job>();
-                for(int i = 0; i < jobs.size(); i++){
-                    jobList.add(parseJobJSON(jobs.get(i).html().toString()));
+                int hasNewJobs = 0;
+                for(int i = 0; i < jobs.size(); i++) {
+                    if(dbHandler.addHandler(parseJobJSON(jobs.get(i).html().toString()), i))
+                        hasNewJobs += 1;
                 }
-                if(jobList.size() > 0) {
-                    dbHandler.deleteAllHandler();
-                    for(int i = 0; i < jobList.size(); i++) {
-                        dbHandler.addHandler(jobList.get(i), i);
-                    }
-                }
-                else jobList = dbHandler.loadHandler();
+                jobList = dbHandler.loadHandler();
+                if(hasNewJobs > 0)
+                    noti("New jobs", "Open Career to see " + hasNewJobs + " new jobs");
                 printJobs();
             } else {
                 Toast.makeText(MainActivity.this, "No connection", Toast.LENGTH_SHORT).show();

@@ -32,7 +32,7 @@ public class SavedJobActivity extends AppCompatActivity {
 
     protected void printJobs(){
         List<String> jobString = new ArrayList<String>();
-        if (jobList.size()==0) {
+        if (jobList.size() == 0) {
             TextView info = (TextView) findViewById(R.id.noJobTextView);
             info.setText("No job saved.");
         }
