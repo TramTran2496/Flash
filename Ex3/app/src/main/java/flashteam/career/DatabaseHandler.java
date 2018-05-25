@@ -56,7 +56,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public boolean addHandler(Job job, int id) {
         String query = "Select * FROM " + TABLE_NAME
                 + " WHERE " + COLUMN_TITLE + "='" + job.getTitle() + "' AND "
-                + COLUMN_COMP + "='" + job.getCompany() + "'";
+                + COLUMN_COMP + "='" + job.getCompany() + "' AND "
+                + COLUMN_ADDR + "='" + job.getAddress() + "'";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
 
